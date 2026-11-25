@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- No network connections are permitted: everything is local to this folder. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file: 'unsafe-inline'; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data:; connect-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>Self Checkout Prototype</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="root"></div>
+  <div id="live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p>This prototype needs JavaScript.</p></noscript>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/scenario.js"></script>
+  <script src="js/transaction.js"></script>
+  <script src="js/telemetry.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/persistence.js"></script>
+  <script src="js/controller.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

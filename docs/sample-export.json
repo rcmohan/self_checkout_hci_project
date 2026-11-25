@@ -1,0 +1,3364 @@
+{
+  "schemaVersion": "1.0",
+  "prototypeVersion": "1.1.0",
+  "scenarioVersion": "1.0",
+  "sessionId": "ef05321e-eeb7-4684-b8ba-bf0277cce02e",
+  "condition": "redesign",
+  "mode": "study",
+  "status": "completed",
+  "endReason": "all_tasks_finished",
+  "durationMs": 3045,
+  "resumes": 0,
+  "offlineGapMs": 0,
+  "taskOrder": [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6"
+  ],
+  "tasks": [
+    {
+      "taskId": "T1",
+      "outcome": "success",
+      "durationMs": 510,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "correct_quantity": true,
+        "verified": true,
+        "no_open_issue": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 0,
+      "helpOpens": 0,
+      "assistanceRequests": 0,
+      "quantityEdits": 1,
+      "repeatedScans": 0,
+      "blockedPayments": 0
+    },
+    {
+      "taskId": "T2",
+      "outcome": "success",
+      "durationMs": 145,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "intended_quantity": true,
+        "verified": true,
+        "issue_cleared": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 1,
+      "helpOpens": 0,
+      "assistanceRequests": 0,
+      "quantityEdits": 1,
+      "repeatedScans": 0,
+      "blockedPayments": 0
+    },
+    {
+      "taskId": "T3",
+      "outcome": "success",
+      "durationMs": 246,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "line_removed": true,
+        "verification_complete": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 0,
+      "helpOpens": 0,
+      "assistanceRequests": 0,
+      "quantityEdits": 0,
+      "repeatedScans": 0,
+      "blockedPayments": 0
+    },
+    {
+      "taskId": "T4",
+      "outcome": "success",
+      "durationMs": 434,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "item_identified": true,
+        "verified": true,
+        "recovery_complete": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 1,
+      "helpOpens": 0,
+      "assistanceRequests": 0,
+      "quantityEdits": 0,
+      "repeatedScans": 0,
+      "blockedPayments": 0
+    },
+    {
+      "taskId": "T5",
+      "outcome": "success",
+      "durationMs": 386,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "correct_produce": true,
+        "weight_committed": true,
+        "verified": true,
+        "no_open_issue": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 0,
+      "helpOpens": 0,
+      "assistanceRequests": 0,
+      "quantityEdits": 0,
+      "repeatedScans": 0,
+      "blockedPayments": 0
+    },
+    {
+      "taskId": "T6",
+      "outcome": "success",
+      "durationMs": 912,
+      "censoredAtMs": null,
+      "spansReload": false,
+      "predicatePassed": true,
+      "criteria": {
+        "other_item_committed": true,
+        "original_issue_resolved": true,
+        "checkout_completed": true
+      },
+      "participantErrors": 0,
+      "scenarioFailures": 1,
+      "helpOpens": 1,
+      "assistanceRequests": 1,
+      "quantityEdits": 0,
+      "repeatedScans": 0,
+      "blockedPayments": 1
+    }
+  ],
+  "summary": {
+    "tasksTotal": 6,
+    "tasksCompleted": 6,
+    "tasksPartial": 0,
+    "tasksFailed": 0,
+    "tasksAbandoned": 0,
+    "tasksUnfinished": 0,
+    "tasksNotStarted": 0,
+    "participantErrors": 0,
+    "scenarioFailures": 3,
+    "errorsByCategory": {
+      "participant_input": 0,
+      "injected_scenario": 3,
+      "policy_block": 1,
+      "technical": 0
+    },
+    "helpOpens": 1,
+    "helpShownAutomatically": 3,
+    "helpByContext": {
+      "possible_duplicate": 1,
+      "unreadable_barcode": 3
+    },
+    "helpActionsSelected": 4,
+    "recoveryAttempts": 3,
+    "assistanceRequests": 1,
+    "assistanceCompleted": 1,
+    "scanAttempts": 4,
+    "repeatedScans": 0,
+    "quantityEdits": 2,
+    "removalAttempts": 1,
+    "removalsCompleted": 1,
+    "paymentAttempts": 2,
+    "blockedPayments": 1,
+    "checkoutsCompleted": 1,
+    "rejectedActions": 1,
+    "hiddenIntervals": 0,
+    "hiddenDurationMs": 0,
+    "hiddenIntervalUnfinished": false,
+    "unresolvedIssues": 0,
+    "issues": [
+      {
+        "issueId": "I1",
+        "type": "quantity_change",
+        "taskId": "T1",
+        "openedMs": 521,
+        "closedMs": 651,
+        "durationMs": 130,
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      },
+      {
+        "issueId": "I2",
+        "type": "possible_duplicate",
+        "taskId": "T2",
+        "openedMs": 697,
+        "closedMs": 827,
+        "durationMs": 130,
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      },
+      {
+        "issueId": "I3",
+        "type": "removal_pending",
+        "taskId": "T3",
+        "openedMs": 971,
+        "closedMs": 1111,
+        "durationMs": 140,
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      },
+      {
+        "issueId": "I4",
+        "type": "unreadable_barcode",
+        "taskId": "T4",
+        "openedMs": 1200,
+        "closedMs": 1471,
+        "durationMs": 271,
+        "finalStatus": "resolved",
+        "resolutionMethod": "manual_entry"
+      },
+      {
+        "issueId": "I5",
+        "type": "unreadable_barcode",
+        "taskId": "T6",
+        "openedMs": 2132,
+        "closedMs": 2608,
+        "durationMs": 476,
+        "finalStatus": "resolved",
+        "resolutionMethod": "assistance"
+      }
+    ],
+    "screenTrajectory": [
+      "task_ready",
+      "welcome",
+      "checkout",
+      "qty_editor",
+      "checkout",
+      "task_ready",
+      "help",
+      "checkout",
+      "task_ready",
+      "checkout",
+      "removal_confirm",
+      "checkout",
+      "task_ready",
+      "checkout",
+      "help",
+      "manual_entry",
+      "checkout",
+      "task_ready",
+      "checkout",
+      "lookup",
+      "weigh",
+      "checkout",
+      "task_ready",
+      "welcome",
+      "checkout",
+      "help",
+      "checkout",
+      "help",
+      "assistance",
+      "checkout",
+      "payment_method",
+      "payment_card",
+      "processing",
+      "payment_complete",
+      "receipt",
+      "results"
+    ],
+    "actionTrajectory": [
+      "tour.finish",
+      "task.start",
+      "kiosk.start",
+      "scan.item",
+      "physical.confirm",
+      "qty.open",
+      "qty.submit",
+      "physical.confirm",
+      "task.done",
+      "task.start",
+      "help.choose",
+      "task.done",
+      "task.start",
+      "remove.open",
+      "remove.confirm",
+      "physical.confirm",
+      "task.done",
+      "task.start",
+      "scan.item",
+      "help.choose",
+      "manual.submit",
+      "physical.confirm",
+      "task.done",
+      "task.start",
+      "lookup.open",
+      "lookup.search",
+      "lookup.select",
+      "scale.place",
+      "weigh.confirm",
+      "physical.confirm",
+      "task.done",
+      "task.start",
+      "kiosk.start",
+      "scan.item",
+      "help.choose",
+      "scan.item",
+      "physical.confirm",
+      "pay.start",
+      "attention.focus",
+      "issue.open",
+      "help.choose",
+      "nav.back",
+      "physical.confirm",
+      "pay.start",
+      "pay.method",
+      "pay.tender",
+      "receipt.choose",
+      "receipt.done"
+    ]
+  },
+  "events": [
+    {
+      "seq": 1,
+      "tMs": 1,
+      "type": "session_started",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "intro",
+      "actionId": "A1",
+      "details": {
+        "mode": "study",
+        "condition": "redesign",
+        "taskOrder": [
+          "T1",
+          "T2",
+          "T3",
+          "T4",
+          "T5",
+          "T6"
+        ]
+      }
+    },
+    {
+      "seq": 2,
+      "tMs": 1,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A1",
+      "details": {
+        "from": "intro",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 3,
+      "tMs": 106,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A2",
+      "details": {
+        "actionName": "tour.finish"
+      }
+    },
+    {
+      "seq": 4,
+      "tMs": 106,
+      "type": "tour_finished",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A2",
+      "details": {
+        "result": "skipped",
+        "stepsViewed": 1
+      }
+    },
+    {
+      "seq": 5,
+      "tMs": 106,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A2",
+      "details": {
+        "actionName": "tour.finish",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 6,
+      "tMs": 149,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A3",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 7,
+      "tMs": 150,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "task_ready",
+      "actionId": "A3",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 0,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 8,
+      "tMs": 150,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "welcome",
+      "actionId": "A3",
+      "details": {
+        "seeded": []
+      }
+    },
+    {
+      "seq": 9,
+      "tMs": 150,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "welcome",
+      "actionId": "A3",
+      "details": {
+        "from": "task_ready",
+        "to": "welcome"
+      }
+    },
+    {
+      "seq": 10,
+      "tMs": 150,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "welcome",
+      "actionId": "A3",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 11,
+      "tMs": 189,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "welcome",
+      "actionId": "A4",
+      "details": {
+        "actionName": "kiosk.start"
+      }
+    },
+    {
+      "seq": 12,
+      "tMs": 189,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A4",
+      "details": {
+        "from": "welcome",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 13,
+      "tMs": 189,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A4",
+      "details": {
+        "actionName": "kiosk.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 14,
+      "tMs": 231,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A5",
+      "details": {
+        "actionName": "scan.item",
+        "target": {
+          "simItemId": "soup"
+        }
+      }
+    },
+    {
+      "seq": 15,
+      "tMs": 231,
+      "type": "scan_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A5",
+      "details": {
+        "physicalItem": "soup",
+        "retry": false
+      }
+    },
+    {
+      "seq": 16,
+      "tMs": 231,
+      "type": "scan_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A5",
+      "lineId": "L1",
+      "sku": "soup",
+      "details": {
+        "result": "success",
+        "oldQty": 0,
+        "newQty": 1,
+        "repeat": false
+      }
+    },
+    {
+      "seq": 17,
+      "tMs": 231,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A5",
+      "details": {
+        "actionName": "scan.item",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 18,
+      "tMs": 284,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A6",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R1"
+        }
+      }
+    },
+    {
+      "seq": 19,
+      "tMs": 284,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A6",
+      "lineId": "L1",
+      "requestId": "R1",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 20,
+      "tMs": 284,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A6",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 21,
+      "tMs": 369,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A6",
+      "lineId": "L1",
+      "requestId": "R1",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 22,
+      "tMs": 423,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A7",
+      "details": {
+        "actionName": "qty.open",
+        "target": {
+          "lineId": "L1"
+        }
+      }
+    },
+    {
+      "seq": 23,
+      "tMs": 423,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "qty_editor",
+      "actionId": "A7",
+      "details": {
+        "from": "checkout",
+        "to": "qty_editor"
+      }
+    },
+    {
+      "seq": 24,
+      "tMs": 423,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "qty_editor",
+      "actionId": "A7",
+      "details": {
+        "actionName": "qty.open",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 25,
+      "tMs": 521,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "qty_editor",
+      "actionId": "A8",
+      "details": {
+        "actionName": "qty.submit",
+        "target": {
+          "lineId": "L1"
+        }
+      }
+    },
+    {
+      "seq": 26,
+      "tMs": 521,
+      "type": "quantity_requested",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "qty_editor",
+      "actionId": "A8",
+      "lineId": "L1",
+      "sku": "soup",
+      "details": {
+        "oldQty": 1,
+        "newQty": 3,
+        "method": "direct_edit"
+      }
+    },
+    {
+      "seq": 27,
+      "tMs": 521,
+      "type": "issue_opened",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "qty_editor",
+      "actionId": "A8",
+      "lineId": "L1",
+      "issueId": "I1",
+      "sku": "soup",
+      "details": {
+        "issueType": "quantity_change"
+      }
+    },
+    {
+      "seq": 28,
+      "tMs": 521,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A8",
+      "details": {
+        "from": "qty_editor",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 29,
+      "tMs": 521,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A8",
+      "details": {
+        "actionName": "qty.submit",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 30,
+      "tMs": 567,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R2"
+        }
+      }
+    },
+    {
+      "seq": 31,
+      "tMs": 568,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "lineId": "L1",
+      "issueId": "I1",
+      "requestId": "R2",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 32,
+      "tMs": 568,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 33,
+      "tMs": 651,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "lineId": "L1",
+      "issueId": "I1",
+      "requestId": "R2",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 34,
+      "tMs": 651,
+      "type": "quantity_committed",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "lineId": "L1",
+      "requestId": "R2",
+      "sku": "soup",
+      "details": {
+        "oldQty": 1,
+        "newQty": 3,
+        "method": "direct_edit"
+      }
+    },
+    {
+      "seq": 35,
+      "tMs": 651,
+      "type": "issue_resolved",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A9",
+      "lineId": "L1",
+      "issueId": "I1",
+      "details": {
+        "issueType": "quantity_change",
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      }
+    },
+    {
+      "seq": 36,
+      "tMs": 660,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A10",
+      "details": {
+        "actionName": "task.done"
+      }
+    },
+    {
+      "seq": 37,
+      "tMs": 660,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "checkout",
+      "actionId": "A10",
+      "details": {
+        "outcome": "success",
+        "reason": "participant_done",
+        "predicatePassed": true,
+        "criteria": {
+          "correct_quantity": true,
+          "verified": true,
+          "no_open_issue": true
+        },
+        "firstSatisfiedMs": 651
+      }
+    },
+    {
+      "seq": 38,
+      "tMs": 660,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A10",
+      "details": {
+        "from": "checkout",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 39,
+      "tMs": 660,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T1",
+      "screen": "task_ready",
+      "actionId": "A10",
+      "details": {
+        "actionName": "task.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 40,
+      "tMs": 696,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A11",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 41,
+      "tMs": 697,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "task_ready",
+      "actionId": "A11",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 1,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 42,
+      "tMs": 697,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A11",
+      "details": {
+        "seeded": [
+          {
+            "sku": "bread",
+            "qty": 1,
+            "lineId": "L2"
+          },
+          {
+            "sku": "eggs",
+            "qty": 1,
+            "lineId": "L3"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 43,
+      "tMs": 697,
+      "type": "issue_opened",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A11",
+      "lineId": "L3",
+      "issueId": "I2",
+      "sku": "eggs",
+      "details": {
+        "issueType": "possible_duplicate",
+        "errorCategory": "injected_scenario"
+      }
+    },
+    {
+      "seq": 44,
+      "tMs": 697,
+      "type": "help_opened",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "help",
+      "actionId": "A11",
+      "issueId": "I2",
+      "details": {
+        "context": "possible_duplicate",
+        "trigger": "automatic"
+      }
+    },
+    {
+      "seq": 45,
+      "tMs": 697,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "help",
+      "actionId": "A11",
+      "details": {
+        "from": "task_ready",
+        "to": "help"
+      }
+    },
+    {
+      "seq": 46,
+      "tMs": 697,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "help",
+      "actionId": "A11",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 47,
+      "tMs": 745,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "help",
+      "actionId": "A12",
+      "details": {
+        "actionName": "help.choose",
+        "target": {
+          "option": "remove_duplicate"
+        }
+      }
+    },
+    {
+      "seq": 48,
+      "tMs": 746,
+      "type": "help_action_selected",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "help",
+      "actionId": "A12",
+      "issueId": "I2",
+      "details": {
+        "context": "possible_duplicate",
+        "optionId": "remove_duplicate"
+      }
+    },
+    {
+      "seq": 49,
+      "tMs": 746,
+      "type": "quantity_requested",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "help",
+      "actionId": "A12",
+      "lineId": "L3",
+      "sku": "eggs",
+      "details": {
+        "oldQty": 2,
+        "newQty": 1,
+        "method": "duplicate_prompt",
+        "reason": "duplicate"
+      }
+    },
+    {
+      "seq": 50,
+      "tMs": 746,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "lineId": "L3",
+      "issueId": "I2",
+      "requestId": "R3",
+      "details": {
+        "method": "weight_check",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 51,
+      "tMs": 746,
+      "type": "help_closed",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "issueId": "I2",
+      "details": {
+        "context": "possible_duplicate"
+      }
+    },
+    {
+      "seq": 52,
+      "tMs": 746,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "details": {
+        "from": "help",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 53,
+      "tMs": 746,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "details": {
+        "actionName": "help.choose",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 54,
+      "tMs": 827,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "lineId": "L3",
+      "issueId": "I2",
+      "requestId": "R3",
+      "details": {
+        "result": "success",
+        "method": "weight_check",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 55,
+      "tMs": 827,
+      "type": "quantity_committed",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "lineId": "L3",
+      "requestId": "R3",
+      "sku": "eggs",
+      "details": {
+        "oldQty": 2,
+        "newQty": 1,
+        "method": "duplicate_prompt",
+        "reason": "duplicate"
+      }
+    },
+    {
+      "seq": 56,
+      "tMs": 827,
+      "type": "issue_resolved",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A12",
+      "lineId": "L3",
+      "issueId": "I2",
+      "details": {
+        "issueType": "possible_duplicate",
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      }
+    },
+    {
+      "seq": 57,
+      "tMs": 842,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A13",
+      "details": {
+        "actionName": "task.done"
+      }
+    },
+    {
+      "seq": 58,
+      "tMs": 842,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "checkout",
+      "actionId": "A13",
+      "details": {
+        "outcome": "success",
+        "reason": "participant_done",
+        "predicatePassed": true,
+        "criteria": {
+          "intended_quantity": true,
+          "verified": true,
+          "issue_cleared": true
+        },
+        "firstSatisfiedMs": 827
+      }
+    },
+    {
+      "seq": 59,
+      "tMs": 842,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A13",
+      "details": {
+        "from": "checkout",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 60,
+      "tMs": 842,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T2",
+      "screen": "task_ready",
+      "actionId": "A13",
+      "details": {
+        "actionName": "task.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 61,
+      "tMs": 878,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A14",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 62,
+      "tMs": 879,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "task_ready",
+      "actionId": "A14",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 2,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 63,
+      "tMs": 879,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A14",
+      "details": {
+        "seeded": [
+          {
+            "sku": "milk",
+            "qty": 1,
+            "lineId": "L4"
+          },
+          {
+            "sku": "bread",
+            "qty": 1,
+            "lineId": "L5"
+          },
+          {
+            "sku": "juice",
+            "qty": 1,
+            "lineId": "L6"
+          },
+          {
+            "sku": "cereal",
+            "qty": 1,
+            "lineId": "L7"
+          },
+          {
+            "sku": "bananas",
+            "qty": 1,
+            "lineId": "L8"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 64,
+      "tMs": 879,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A14",
+      "details": {
+        "from": "task_ready",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 65,
+      "tMs": 879,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "checkout",
+      "actionId": "A14",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 66,
+      "tMs": 927,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A15",
+      "details": {
+        "actionName": "remove.open",
+        "target": {
+          "lineId": "L4"
+        }
+      }
+    },
+    {
+      "seq": 67,
+      "tMs": 927,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "removal_confirm",
+      "actionId": "A15",
+      "details": {
+        "from": "checkout",
+        "to": "removal_confirm"
+      }
+    },
+    {
+      "seq": 68,
+      "tMs": 927,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "removal_confirm",
+      "actionId": "A15",
+      "details": {
+        "actionName": "remove.open",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 69,
+      "tMs": 970,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "removal_confirm",
+      "actionId": "A16",
+      "details": {
+        "actionName": "remove.confirm",
+        "target": {
+          "reason": "unwanted"
+        }
+      }
+    },
+    {
+      "seq": 70,
+      "tMs": 971,
+      "type": "removal_requested",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "removal_confirm",
+      "actionId": "A16",
+      "lineId": "L4",
+      "sku": "milk",
+      "details": {
+        "reason": "unwanted",
+        "quantity": 1
+      }
+    },
+    {
+      "seq": 71,
+      "tMs": 971,
+      "type": "issue_opened",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "removal_confirm",
+      "actionId": "A16",
+      "lineId": "L4",
+      "issueId": "I3",
+      "sku": "milk",
+      "details": {
+        "issueType": "removal_pending"
+      }
+    },
+    {
+      "seq": 72,
+      "tMs": 971,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A16",
+      "details": {
+        "from": "removal_confirm",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 73,
+      "tMs": 971,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A16",
+      "details": {
+        "actionName": "remove.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 74,
+      "tMs": 1026,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R4"
+        }
+      }
+    },
+    {
+      "seq": 75,
+      "tMs": 1026,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "lineId": "L4",
+      "issueId": "I3",
+      "requestId": "R4",
+      "details": {
+        "method": "return_area",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 76,
+      "tMs": 1026,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 77,
+      "tMs": 1111,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "lineId": "L4",
+      "issueId": "I3",
+      "requestId": "R4",
+      "details": {
+        "result": "success",
+        "method": "return_area",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 78,
+      "tMs": 1111,
+      "type": "removal_committed",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "lineId": "L4",
+      "requestId": "R4",
+      "sku": "milk",
+      "details": {
+        "reason": "unwanted",
+        "quantity": 1
+      }
+    },
+    {
+      "seq": 79,
+      "tMs": 1111,
+      "type": "issue_resolved",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A17",
+      "lineId": "L4",
+      "issueId": "I3",
+      "details": {
+        "issueType": "removal_pending",
+        "finalStatus": "resolved",
+        "resolutionMethod": "verified"
+      }
+    },
+    {
+      "seq": 80,
+      "tMs": 1125,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A18",
+      "details": {
+        "actionName": "task.done"
+      }
+    },
+    {
+      "seq": 81,
+      "tMs": 1125,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "checkout",
+      "actionId": "A18",
+      "details": {
+        "outcome": "success",
+        "reason": "participant_done",
+        "predicatePassed": true,
+        "criteria": {
+          "line_removed": true,
+          "verification_complete": true
+        },
+        "firstSatisfiedMs": 1111
+      }
+    },
+    {
+      "seq": 82,
+      "tMs": 1125,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A18",
+      "details": {
+        "from": "checkout",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 83,
+      "tMs": 1125,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T3",
+      "screen": "task_ready",
+      "actionId": "A18",
+      "details": {
+        "actionName": "task.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 84,
+      "tMs": 1164,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A19",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 85,
+      "tMs": 1164,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "task_ready",
+      "actionId": "A19",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 4,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 86,
+      "tMs": 1164,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A19",
+      "details": {
+        "seeded": [
+          {
+            "sku": "eggs",
+            "qty": 1,
+            "lineId": "L9"
+          },
+          {
+            "sku": "bread",
+            "qty": 1,
+            "lineId": "L10"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 87,
+      "tMs": 1164,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A19",
+      "details": {
+        "from": "task_ready",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 88,
+      "tMs": 1164,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "checkout",
+      "actionId": "A19",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 89,
+      "tMs": 1200,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A20",
+      "details": {
+        "actionName": "scan.item",
+        "target": {
+          "simItemId": "cereal"
+        }
+      }
+    },
+    {
+      "seq": 90,
+      "tMs": 1200,
+      "type": "scan_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A20",
+      "details": {
+        "physicalItem": "cereal",
+        "retry": false
+      }
+    },
+    {
+      "seq": 91,
+      "tMs": 1200,
+      "type": "scan_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A20",
+      "details": {
+        "result": "failure",
+        "failureCode": "unreadable_barcode",
+        "errorCategory": "injected_scenario",
+        "physicalItem": "cereal"
+      }
+    },
+    {
+      "seq": 92,
+      "tMs": 1200,
+      "type": "issue_opened",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A20",
+      "issueId": "I4",
+      "details": {
+        "issueType": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 93,
+      "tMs": 1200,
+      "type": "help_opened",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "help",
+      "actionId": "A20",
+      "issueId": "I4",
+      "details": {
+        "context": "unreadable_barcode",
+        "trigger": "automatic"
+      }
+    },
+    {
+      "seq": 94,
+      "tMs": 1200,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "help",
+      "actionId": "A20",
+      "details": {
+        "from": "checkout",
+        "to": "help"
+      }
+    },
+    {
+      "seq": 95,
+      "tMs": 1200,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "help",
+      "actionId": "A20",
+      "details": {
+        "actionName": "scan.item",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 96,
+      "tMs": 1235,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "help",
+      "actionId": "A21",
+      "details": {
+        "actionName": "help.choose",
+        "target": {
+          "option": "enter_code"
+        }
+      }
+    },
+    {
+      "seq": 97,
+      "tMs": 1235,
+      "type": "help_action_selected",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "help",
+      "actionId": "A21",
+      "issueId": "I4",
+      "details": {
+        "context": "unreadable_barcode",
+        "optionId": "enter_code"
+      }
+    },
+    {
+      "seq": 98,
+      "tMs": 1235,
+      "type": "help_closed",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "manual_entry",
+      "actionId": "A21",
+      "issueId": "I4",
+      "details": {
+        "context": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 99,
+      "tMs": 1235,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "manual_entry",
+      "actionId": "A21",
+      "details": {
+        "from": "help",
+        "to": "manual_entry"
+      }
+    },
+    {
+      "seq": 100,
+      "tMs": 1235,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "manual_entry",
+      "actionId": "A21",
+      "details": {
+        "actionName": "help.choose",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 101,
+      "tMs": 1471,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "manual_entry",
+      "actionId": "A22",
+      "details": {
+        "actionName": "manual.submit"
+      }
+    },
+    {
+      "seq": 102,
+      "tMs": 1471,
+      "type": "quantity_committed",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "manual_entry",
+      "actionId": "A22",
+      "lineId": "L11",
+      "sku": "cereal",
+      "details": {
+        "oldQty": 0,
+        "newQty": 1,
+        "method": "manual_entry"
+      }
+    },
+    {
+      "seq": 103,
+      "tMs": 1471,
+      "type": "issue_resolved",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A22",
+      "issueId": "I4",
+      "details": {
+        "issueType": "unreadable_barcode",
+        "finalStatus": "resolved",
+        "resolutionMethod": "manual_entry"
+      }
+    },
+    {
+      "seq": 104,
+      "tMs": 1471,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A22",
+      "details": {
+        "from": "manual_entry",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 105,
+      "tMs": 1471,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A22",
+      "details": {
+        "actionName": "manual.submit",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 106,
+      "tMs": 1508,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A23",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R5"
+        }
+      }
+    },
+    {
+      "seq": 107,
+      "tMs": 1508,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A23",
+      "lineId": "L11",
+      "requestId": "R5",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 108,
+      "tMs": 1508,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A23",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 109,
+      "tMs": 1590,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A23",
+      "lineId": "L11",
+      "requestId": "R5",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 110,
+      "tMs": 1598,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A24",
+      "details": {
+        "actionName": "task.done"
+      }
+    },
+    {
+      "seq": 111,
+      "tMs": 1598,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "checkout",
+      "actionId": "A24",
+      "details": {
+        "outcome": "success",
+        "reason": "participant_done",
+        "predicatePassed": true,
+        "criteria": {
+          "item_identified": true,
+          "verified": true,
+          "recovery_complete": true
+        },
+        "firstSatisfiedMs": 1590
+      }
+    },
+    {
+      "seq": 112,
+      "tMs": 1598,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A24",
+      "details": {
+        "from": "checkout",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 113,
+      "tMs": 1598,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T4",
+      "screen": "task_ready",
+      "actionId": "A24",
+      "details": {
+        "actionName": "task.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 114,
+      "tMs": 1634,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A25",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 115,
+      "tMs": 1635,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "task_ready",
+      "actionId": "A25",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 3,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 116,
+      "tMs": 1635,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A25",
+      "details": {
+        "seeded": [
+          {
+            "sku": "eggs",
+            "qty": 1,
+            "lineId": "L12"
+          }
+        ]
+      }
+    },
+    {
+      "seq": 117,
+      "tMs": 1635,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A25",
+      "details": {
+        "from": "task_ready",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 118,
+      "tMs": 1635,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "checkout",
+      "actionId": "A25",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 119,
+      "tMs": 1671,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A26",
+      "details": {
+        "actionName": "lookup.open"
+      }
+    },
+    {
+      "seq": 120,
+      "tMs": 1671,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "lookup",
+      "actionId": "A26",
+      "details": {
+        "from": "checkout",
+        "to": "lookup"
+      }
+    },
+    {
+      "seq": 121,
+      "tMs": 1671,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "lookup",
+      "actionId": "A26",
+      "details": {
+        "actionName": "lookup.open",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 122,
+      "tMs": 1708,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "lookup",
+      "actionId": "A27",
+      "details": {
+        "actionName": "lookup.search"
+      }
+    },
+    {
+      "seq": 123,
+      "tMs": 1708,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "lookup",
+      "actionId": "A27",
+      "details": {
+        "actionName": "lookup.search",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 124,
+      "tMs": 1817,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "lookup",
+      "actionId": "A28",
+      "details": {
+        "actionName": "lookup.select",
+        "target": {
+          "sku": "gala_apples"
+        }
+      }
+    },
+    {
+      "seq": 125,
+      "tMs": 1817,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A28",
+      "details": {
+        "from": "lookup",
+        "to": "weigh"
+      }
+    },
+    {
+      "seq": 126,
+      "tMs": 1817,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A28",
+      "details": {
+        "actionName": "lookup.select",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 127,
+      "tMs": 1856,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A29",
+      "details": {
+        "actionName": "scale.place"
+      }
+    },
+    {
+      "seq": 128,
+      "tMs": 1856,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A29",
+      "details": {
+        "actionName": "scale.place",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 129,
+      "tMs": 1891,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A30",
+      "details": {
+        "actionName": "weigh.confirm"
+      }
+    },
+    {
+      "seq": 130,
+      "tMs": 1891,
+      "type": "quantity_committed",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "weigh",
+      "actionId": "A30",
+      "lineId": "L13",
+      "sku": "gala_apples",
+      "details": {
+        "oldQty": 0,
+        "newQty": 1,
+        "method": "lookup",
+        "weight": 240
+      }
+    },
+    {
+      "seq": 131,
+      "tMs": 1891,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A30",
+      "details": {
+        "from": "weigh",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 132,
+      "tMs": 1891,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A30",
+      "details": {
+        "actionName": "weigh.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 133,
+      "tMs": 1930,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A31",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R6"
+        }
+      }
+    },
+    {
+      "seq": 134,
+      "tMs": 1930,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A31",
+      "lineId": "L13",
+      "requestId": "R6",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 135,
+      "tMs": 1930,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A31",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 136,
+      "tMs": 2014,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A31",
+      "lineId": "L13",
+      "requestId": "R6",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 137,
+      "tMs": 2021,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A32",
+      "details": {
+        "actionName": "task.done"
+      }
+    },
+    {
+      "seq": 138,
+      "tMs": 2021,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "checkout",
+      "actionId": "A32",
+      "details": {
+        "outcome": "success",
+        "reason": "participant_done",
+        "predicatePassed": true,
+        "criteria": {
+          "correct_produce": true,
+          "weight_committed": true,
+          "verified": true,
+          "no_open_issue": true
+        },
+        "firstSatisfiedMs": 2014
+      }
+    },
+    {
+      "seq": 139,
+      "tMs": 2021,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A32",
+      "details": {
+        "from": "checkout",
+        "to": "task_ready"
+      }
+    },
+    {
+      "seq": 140,
+      "tMs": 2021,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T5",
+      "screen": "task_ready",
+      "actionId": "A32",
+      "details": {
+        "actionName": "task.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 141,
+      "tMs": 2060,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "task_ready",
+      "actionId": "A33",
+      "details": {
+        "actionName": "task.start"
+      }
+    },
+    {
+      "seq": 142,
+      "tMs": 2060,
+      "type": "transaction_reset",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "task_ready",
+      "actionId": "A33",
+      "details": {
+        "reasonCode": "task_boundary",
+        "lineCount": 2,
+        "discardedIssueIds": []
+      }
+    },
+    {
+      "seq": 143,
+      "tMs": 2060,
+      "type": "task_started",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "welcome",
+      "actionId": "A33",
+      "details": {
+        "seeded": []
+      }
+    },
+    {
+      "seq": 144,
+      "tMs": 2060,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "welcome",
+      "actionId": "A33",
+      "details": {
+        "from": "task_ready",
+        "to": "welcome"
+      }
+    },
+    {
+      "seq": 145,
+      "tMs": 2060,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "welcome",
+      "actionId": "A33",
+      "details": {
+        "actionName": "task.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 146,
+      "tMs": 2096,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "welcome",
+      "actionId": "A34",
+      "details": {
+        "actionName": "kiosk.start"
+      }
+    },
+    {
+      "seq": 147,
+      "tMs": 2096,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A34",
+      "details": {
+        "from": "welcome",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 148,
+      "tMs": 2096,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A34",
+      "details": {
+        "actionName": "kiosk.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 149,
+      "tMs": 2132,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A35",
+      "details": {
+        "actionName": "scan.item",
+        "target": {
+          "simItemId": "paper_towels"
+        }
+      }
+    },
+    {
+      "seq": 150,
+      "tMs": 2132,
+      "type": "scan_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A35",
+      "details": {
+        "physicalItem": "paper_towels",
+        "retry": false
+      }
+    },
+    {
+      "seq": 151,
+      "tMs": 2132,
+      "type": "scan_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A35",
+      "details": {
+        "result": "failure",
+        "failureCode": "unreadable_barcode",
+        "errorCategory": "injected_scenario",
+        "physicalItem": "paper_towels"
+      }
+    },
+    {
+      "seq": 152,
+      "tMs": 2132,
+      "type": "issue_opened",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A35",
+      "issueId": "I5",
+      "details": {
+        "issueType": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 153,
+      "tMs": 2132,
+      "type": "help_opened",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A35",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode",
+        "trigger": "automatic"
+      }
+    },
+    {
+      "seq": 154,
+      "tMs": 2132,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A35",
+      "details": {
+        "from": "checkout",
+        "to": "help"
+      }
+    },
+    {
+      "seq": 155,
+      "tMs": 2132,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A35",
+      "details": {
+        "actionName": "scan.item",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 156,
+      "tMs": 2168,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A36",
+      "details": {
+        "actionName": "help.choose",
+        "target": {
+          "option": "set_aside"
+        }
+      }
+    },
+    {
+      "seq": 157,
+      "tMs": 2169,
+      "type": "help_action_selected",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A36",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode",
+        "optionId": "set_aside"
+      }
+    },
+    {
+      "seq": 158,
+      "tMs": 2169,
+      "type": "issue_deferred",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A36",
+      "issueId": "I5",
+      "details": {
+        "issueType": "unreadable_barcode",
+        "method": "participant"
+      }
+    },
+    {
+      "seq": 159,
+      "tMs": 2169,
+      "type": "help_closed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A36",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 160,
+      "tMs": 2169,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A36",
+      "details": {
+        "from": "help",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 161,
+      "tMs": 2169,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A36",
+      "details": {
+        "actionName": "help.choose",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 162,
+      "tMs": 2205,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A37",
+      "details": {
+        "actionName": "scan.item",
+        "target": {
+          "simItemId": "juice"
+        }
+      }
+    },
+    {
+      "seq": 163,
+      "tMs": 2206,
+      "type": "scan_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A37",
+      "details": {
+        "physicalItem": "juice",
+        "retry": false
+      }
+    },
+    {
+      "seq": 164,
+      "tMs": 2206,
+      "type": "scan_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A37",
+      "lineId": "L14",
+      "sku": "juice",
+      "details": {
+        "result": "success",
+        "oldQty": 0,
+        "newQty": 1,
+        "repeat": false
+      }
+    },
+    {
+      "seq": 165,
+      "tMs": 2206,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A37",
+      "details": {
+        "actionName": "scan.item",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 166,
+      "tMs": 2241,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A38",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R7"
+        }
+      }
+    },
+    {
+      "seq": 167,
+      "tMs": 2241,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A38",
+      "lineId": "L14",
+      "requestId": "R7",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 168,
+      "tMs": 2241,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A38",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 169,
+      "tMs": 2324,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A38",
+      "lineId": "L14",
+      "requestId": "R7",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 170,
+      "tMs": 2337,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A39",
+      "details": {
+        "actionName": "pay.start"
+      }
+    },
+    {
+      "seq": 171,
+      "tMs": 2337,
+      "type": "payment_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A39"
+    },
+    {
+      "seq": 172,
+      "tMs": 2337,
+      "type": "payment_blocked",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A39",
+      "details": {
+        "blockingReason": "unresolved_issues",
+        "reasons": [
+          "unresolved_issues"
+        ],
+        "errorCategory": "policy_block"
+      }
+    },
+    {
+      "seq": 173,
+      "tMs": 2337,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A39",
+      "details": {
+        "actionName": "pay.start",
+        "outcome": "rejected",
+        "reasonCode": "unresolved_issues"
+      }
+    },
+    {
+      "seq": 174,
+      "tMs": 2375,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A40",
+      "details": {
+        "actionName": "attention.focus"
+      }
+    },
+    {
+      "seq": 175,
+      "tMs": 2375,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A40",
+      "details": {
+        "actionName": "attention.focus",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 176,
+      "tMs": 2411,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A41",
+      "details": {
+        "actionName": "issue.open",
+        "target": {
+          "issueId": "I5"
+        }
+      }
+    },
+    {
+      "seq": 177,
+      "tMs": 2411,
+      "type": "help_opened",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A41",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode",
+        "trigger": "user"
+      }
+    },
+    {
+      "seq": 178,
+      "tMs": 2411,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A41",
+      "details": {
+        "from": "checkout",
+        "to": "help"
+      }
+    },
+    {
+      "seq": 179,
+      "tMs": 2411,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A41",
+      "details": {
+        "actionName": "issue.open",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 180,
+      "tMs": 2450,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A42",
+      "details": {
+        "actionName": "help.choose",
+        "target": {
+          "option": "request_assistance"
+        }
+      }
+    },
+    {
+      "seq": 181,
+      "tMs": 2450,
+      "type": "help_action_selected",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A42",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode",
+        "optionId": "request_assistance"
+      }
+    },
+    {
+      "seq": 182,
+      "tMs": 2450,
+      "type": "assistance_requested",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "help",
+      "actionId": "A42",
+      "issueId": "I5",
+      "requestId": "H1",
+      "details": {
+        "issueType": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 183,
+      "tMs": 2450,
+      "type": "help_closed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "assistance",
+      "actionId": "A42",
+      "issueId": "I5",
+      "details": {
+        "context": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 184,
+      "tMs": 2450,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "assistance",
+      "actionId": "A42",
+      "details": {
+        "from": "help",
+        "to": "assistance"
+      }
+    },
+    {
+      "seq": 185,
+      "tMs": 2450,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "assistance",
+      "actionId": "A42",
+      "details": {
+        "actionName": "help.choose",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 186,
+      "tMs": 2495,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "assistance",
+      "actionId": "A43",
+      "details": {
+        "actionName": "nav.back"
+      }
+    },
+    {
+      "seq": 187,
+      "tMs": 2495,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A43",
+      "details": {
+        "from": "assistance",
+        "to": "checkout"
+      }
+    },
+    {
+      "seq": 188,
+      "tMs": 2495,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A43",
+      "details": {
+        "actionName": "nav.back",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 189,
+      "tMs": 2608,
+      "type": "assistance_completed",
+      "actor": "simulated_employee",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A42",
+      "issueId": "I5",
+      "requestId": "H1",
+      "details": {
+        "outcome": "resolved",
+        "issueType": "unreadable_barcode"
+      }
+    },
+    {
+      "seq": 190,
+      "tMs": 2608,
+      "type": "quantity_committed",
+      "actor": "simulated_employee",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A42",
+      "lineId": "L15",
+      "sku": "paper_towels",
+      "details": {
+        "oldQty": 0,
+        "newQty": 1,
+        "method": "assisted"
+      }
+    },
+    {
+      "seq": 191,
+      "tMs": 2608,
+      "type": "issue_resolved",
+      "actor": "simulated_employee",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A42",
+      "issueId": "I5",
+      "details": {
+        "issueType": "unreadable_barcode",
+        "finalStatus": "resolved",
+        "resolutionMethod": "assistance"
+      }
+    },
+    {
+      "seq": 192,
+      "tMs": 2636,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A44",
+      "details": {
+        "actionName": "physical.confirm",
+        "target": {
+          "requestId": "R8"
+        }
+      }
+    },
+    {
+      "seq": 193,
+      "tMs": 2636,
+      "type": "verification_requested",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A44",
+      "lineId": "L15",
+      "requestId": "R8",
+      "details": {
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 194,
+      "tMs": 2636,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A44",
+      "details": {
+        "actionName": "physical.confirm",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 195,
+      "tMs": 2717,
+      "type": "verification_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A44",
+      "lineId": "L15",
+      "requestId": "R8",
+      "details": {
+        "result": "success",
+        "method": "bag_scale",
+        "attempt": 1
+      }
+    },
+    {
+      "seq": 196,
+      "tMs": 2729,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A45",
+      "details": {
+        "actionName": "pay.start"
+      }
+    },
+    {
+      "seq": 197,
+      "tMs": 2729,
+      "type": "payment_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "checkout",
+      "actionId": "A45"
+    },
+    {
+      "seq": 198,
+      "tMs": 2729,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "payment_method",
+      "actionId": "A45",
+      "details": {
+        "from": "checkout",
+        "to": "payment_method"
+      }
+    },
+    {
+      "seq": 199,
+      "tMs": 2729,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "payment_method",
+      "actionId": "A45",
+      "details": {
+        "actionName": "pay.start",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 200,
+      "tMs": 2778,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "payment_method",
+      "actionId": "A46",
+      "details": {
+        "actionName": "pay.method",
+        "target": {
+          "method": "credit"
+        }
+      }
+    },
+    {
+      "seq": 201,
+      "tMs": 2778,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "payment_card",
+      "actionId": "A46",
+      "details": {
+        "from": "payment_method",
+        "to": "payment_card"
+      }
+    },
+    {
+      "seq": 202,
+      "tMs": 2778,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "payment_card",
+      "actionId": "A46",
+      "details": {
+        "actionName": "pay.method",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 203,
+      "tMs": 2817,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "payment_card",
+      "actionId": "A47",
+      "details": {
+        "actionName": "pay.tender"
+      }
+    },
+    {
+      "seq": 204,
+      "tMs": 2818,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": "T6",
+      "screen": "processing",
+      "actionId": "A47",
+      "details": {
+        "from": "payment_card",
+        "to": "processing"
+      }
+    },
+    {
+      "seq": 205,
+      "tMs": 2818,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "processing",
+      "actionId": "A47",
+      "details": {
+        "actionName": "pay.tender",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 206,
+      "tMs": 2972,
+      "type": "checkout_completed",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "processing",
+      "actionId": "A47",
+      "details": {
+        "finalTotalCents": 1143,
+        "itemCount": 2,
+        "method": "credit"
+      }
+    },
+    {
+      "seq": 207,
+      "tMs": 2972,
+      "type": "task_ended",
+      "actor": "system",
+      "taskId": "T6",
+      "screen": "payment_complete",
+      "actionId": "A47",
+      "details": {
+        "outcome": "success",
+        "reason": "checkout_completed",
+        "predicatePassed": true,
+        "criteria": {
+          "other_item_committed": true,
+          "original_issue_resolved": true,
+          "checkout_completed": true
+        }
+      }
+    },
+    {
+      "seq": 208,
+      "tMs": 2972,
+      "type": "screen_changed",
+      "actor": "system",
+      "taskId": null,
+      "screen": "payment_complete",
+      "actionId": "A47",
+      "details": {
+        "from": "processing",
+        "to": "payment_complete"
+      }
+    },
+    {
+      "seq": 209,
+      "tMs": 3008,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "payment_complete",
+      "actionId": "A48",
+      "details": {
+        "actionName": "receipt.choose",
+        "target": {
+          "option": "print"
+        }
+      }
+    },
+    {
+      "seq": 210,
+      "tMs": 3008,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "receipt",
+      "actionId": "A48",
+      "details": {
+        "from": "payment_complete",
+        "to": "receipt"
+      }
+    },
+    {
+      "seq": 211,
+      "tMs": 3008,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "receipt",
+      "actionId": "A48",
+      "details": {
+        "actionName": "receipt.choose",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 212,
+      "tMs": 3045,
+      "type": "action_attempted",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "receipt",
+      "actionId": "A49",
+      "details": {
+        "actionName": "receipt.done"
+      }
+    },
+    {
+      "seq": 213,
+      "tMs": 3045,
+      "type": "screen_changed",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "results",
+      "actionId": "A49",
+      "details": {
+        "from": "receipt",
+        "to": "results"
+      }
+    },
+    {
+      "seq": 214,
+      "tMs": 3045,
+      "type": "action_result",
+      "actor": "system",
+      "taskId": null,
+      "screen": "results",
+      "actionId": "A49",
+      "details": {
+        "actionName": "receipt.done",
+        "outcome": "accepted"
+      }
+    },
+    {
+      "seq": 215,
+      "tMs": 3045,
+      "type": "session_ended",
+      "actor": "participant",
+      "taskId": null,
+      "screen": "results",
+      "actionId": "A49",
+      "details": {
+        "mode": "study",
+        "condition": "redesign",
+        "endReason": "all_tasks_finished",
+        "status": "completed"
+      }
+    }
+  ]
+}
