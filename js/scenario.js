@@ -75,8 +75,9 @@
       var original = s.issues.filter(function (i) { return i.simItem === 'paper_towels'; });
       return {
         other_item_committed: quantityOf(s, 'juice') >= 1,
+        /* Closing the towel problem by choosing a different item does not count. */
         original_issue_resolved: original.length > 0 &&
-          original.every(function (i) { return i.status === 'resolved'; }) &&
+          original.every(function (i) { return i.status === 'resolved' && i.resolvedSku === i.simItem; }) &&
           quantityOf(s, 'paper_towels') === 1,
         checkout_completed: s.checkoutCompleted === true
       };

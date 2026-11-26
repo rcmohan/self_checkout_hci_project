@@ -3,6 +3,8 @@
     python tests/e2e.py                      test index.html and the standalone file
     python tests/e2e.py --sample PATH        also save one study export to PATH
 """
+import base64
+import gzip
 import json
 import pathlib
 import sys
@@ -11,6 +13,8 @@ import time
 from cdp import Browser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "tools"))
+from decode_export import decode
 TARGETS = [ROOT / "index.html", ROOT / "dist" / "self-checkout-standalone.html"]
 RESULTS = []
 
@@ -188,12 +192,31 @@ def study_session(browser, k, url, label, sample=None):
 
 def results_screen(browser, k, label):
     compact = browser.js("SCO.app.getExport().compact")
-    check(f"{label}: results text area holds compact JSON", browser.js("document.getElementById('json').value") == compact)
+    browser.wait("SCO.app.getExport().paste !== null && document.getElementById('json').value !== ''")
+    paste = browser.js("SCO.app.getExport().paste")
+    wrapper = json.loads(paste)
+    print(f"     compressed: {len(paste):,} characters from {len(compact):,}")
+    check(f"{label}: results text area holds the compressed JSON", browser.js("document.getElementById('json').value") == paste
+          and wrapper["encoding"] == "gzip+base64" and wrapper["sessionId"] == json.loads(compact)["sessionId"])
+    check(f"{label}: compressed form is under a quarter of the size", len(paste) < len(compact) / 4, (len(paste), len(compact)))
+    check(f"{label}: compressed form decodes to exactly the same data",
+          gzip.decompress(base64.b64decode(wrapper["data"])).decode("utf-8") == compact and decode(paste) == json.loads(compact))
+    wrapped = "\n".join(paste[i:i + 76] for i in range(0, len(paste), 76))
+    check(f"{label}: decoder accepts line-wrapped and plain responses",
+          decode(wrapped) == decode(compact) == json.loads(compact))
+    try:
+        decode(paste[:-200])
+        rejected = False
+    except ValueError:
+        rejected = True
+    check(f"{label}: decoder rejects a truncated response", rejected)
+    check(f"{label}: label states the compressed length", browser.js(
+        "document.getElementById('json-label').textContent") .startswith(f"Compressed session JSON ({len(paste):,} characters)"))
     browser.js("window.__copied = null; Object.defineProperty(navigator, 'clipboard', {configurable: true, value: "
                "{writeText: t => { window.__copied = t; return Promise.resolve(); }}})")
     k.press(ui("copy"))
     browser.wait("document.getElementById('copy-status').textContent.includes('Copied')")
-    check(f"{label}: copy puts compact JSON on the clipboard", browser.js("window.__copied") == compact)
+    check(f"{label}: copy puts the compressed JSON on the clipboard", browser.js("window.__copied") == paste)
     browser.js("Object.defineProperty(navigator, 'clipboard', {configurable: true, value: "
                "{writeText: () => Promise.reject(new Error('denied'))}}); document.execCommand = () => false")
     k.press(ui("copy"))
@@ -212,8 +235,11 @@ def results_screen(browser, k, label):
     check(f"{label}: download uses the session file name and formatted JSON",
           path.exists() and "\n  " in path.read_text(encoding="utf-8")
           and json.loads(path.read_text(encoding="utf-8")) == json.loads(compact))
-    check(f"{label}: export unchanged after repeated copy and download", browser.js("SCO.app.getExport().compact") == compact)
+    check(f"{label}: export unchanged after repeated copy and download",
+          browser.js("[SCO.app.getExport().compact, SCO.app.getExport().paste]") == [compact, paste])
     browser.reload()
+    browser.wait("SCO.app.getExport().paste !== null")
+    check(f"{label}: compressed text is identical after reload", browser.js("document.getElementById('json').value") == paste)
     check(f"{label}: finished session survives reload unchanged",
           browser.js("SCO.app.getState().ui.screen") == "results" and browser.js("SCO.app.getExport().compact") == compact)
     k.press(ui("ask-delete"))
@@ -493,6 +519,60 @@ def tips(browser, k, url):
     check("tips: finished tips do not return after a reload", browser.js("!document.querySelector('.tour')"))
 
 
+def no_compression(browser, k, url):
+    script = browser.send("Page.addScriptToEvaluateOnNewDocument", source="delete window.CompressionStream;")
+    fresh(browser, url)
+    k.start()
+    k.press(ui("ask-end"))
+    k.press(ui("confirm-yes"))
+    browser.wait("SCO.app.getExport().paste !== null")
+    check("without compression support the plain JSON is offered", browser.js(
+        "document.getElementById('json').value === SCO.app.getExport().compact"
+        " && document.getElementById('json-label').textContent.startsWith('Session JSON (')"))
+    browser.send("Page.removeScriptToEvaluateOnNewDocument", identifier=script["identifier"])
+
+
+def scan_again(browser, k, url):
+    fresh(browser, url)
+    browser.js("document.querySelector('input[value=practice]').click()")
+    k.start()
+    k.press(action("kiosk.start"))
+    k.press(action("sim.unexpected_item"))
+    if k.state("s.ui.screen") != "help":
+        k.press(".attention .btn-resolve")
+    k.press(action("help.choose", option="scan_again"))
+    check("Scan again: kiosk and panel say what to do next", browser.js(
+        "document.querySelector('.prompt-title').textContent === 'Scan the item now'"
+        " && !!document.querySelector('.dock .sim-note')"
+        " && document.querySelector('.attention').textContent.includes('Waiting for you to scan')"))
+    k.scan("soup")
+    k.physical()
+    check("Scan again: scanning clears the bagging problem", k.state(
+        "SCO.tx.unresolved(s).length === 0 && s.lines.length === 1 && !document.querySelector('.sim-note')"))
+
+
+def next_step_visible(browser, k, url):
+    in_view = ("""(() => { const el = document.querySelector('.dock .sim-next'), d = document.querySelector('.dock');
+      if (!el) return false; const r = el.getBoundingClientRect();
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return d.scrollTop > 0 && !!hit && el.contains(hit) && !!document.querySelector('.kiosk .sim-hint'); })()""")
+    for width, height in [(1366, 768), (1920, 1080), (1024, 700)]:
+        browser.viewport(width, height)
+        fresh(browser, url)
+        browser.js("document.querySelector('input[value=practice]').click()")
+        k.start()
+        k.press(action("kiosk.start"))
+        k.press(action("sim.unexpected_item"))  # at the bottom of the panel, so it scrolls
+        k.press(action("help.choose", option="remove_from_bagging"))
+        check(f"{width}x{height}: yellow button stays visible in a scrolled panel, and the kiosk points to it",
+              browser.js(in_view))
+        k.press('.dock [data-action="physical.confirm"]')
+        k.idle()
+        check(f"{width}x{height}: pressing it clears the unexpected item",
+              k.state("SCO.tx.unresolved(s).length === 0"))
+    browser.viewport(1366, 768)
+
+
 def url_options(browser, k, url):
     fresh(browser, url + "?order=T3,T1,T2,T4,T5,T6")
     k.start()
@@ -521,7 +601,7 @@ def main():
             study_session(browser, k, url, label, sample if index == 0 else None)
             results_screen(browser, k, label)
         url = TARGETS[0].as_uri()
-        for part in (reload_resume, keyboard, double_tap, layout, tips, url_options, storage_disabled):
+        for part in (reload_resume, keyboard, double_tap, layout, tips, url_options, no_compression, scan_again, next_step_visible, storage_disabled):
             try:
                 part(browser, k, url)
             except Exception as error:  # report and continue with the other groups

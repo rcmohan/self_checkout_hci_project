@@ -702,6 +702,123 @@
     equal(again.s().session.tour, 'pending');
   });
 
+  function resolutions(h) {
+    return h.events('issue_resolved').map(function (e) {
+      return [e.details.physicalItem, e.details.resolvedSku, e.details.identificationMatch];
+    });
+  }
+
+  test('T6 does not count a towel problem closed with a different item', function () {
+    var h = harness().study('T6');
+    h.d('kiosk.start');
+    h.scan('paper_towels');
+    h.d('help.choose', { option: 'set_aside' });
+    h.add('juice');
+    h.d('issue.open', { issueId: h.open()[0].issueId });
+    h.d('help.choose', { option: 'lookup_item' });
+    h.d('lookup.select', { sku: 'juice' });
+    h.d('qty.step', { lineId: h.line('juice').lineId, delta: -1 });
+    h.d('decrease.confirm', { reason: 'duplicate' });
+    h.run();
+    h.perform();
+    h.scan('paper_towels');
+    h.d('help.choose', { option: 'lookup_item' });
+    h.d('lookup.select', { sku: 'paper_towels' });
+    h.perform();
+    h.pay();
+    h.d('receipt.done');
+    var doc = h.doc();
+    equal([doc.tasks[0].outcome, doc.tasks[0].criteria.original_issue_resolved, doc.tasks[0].wrongIdentifications,
+      doc.tasks[0].firstSatisfiedAfterMs], ['partial', false, 1, null]);
+    equal(doc.summary.wrongIdentifications, 1);
+    equal(resolutions(h).filter(function (r) { return r[0]; }),
+      [['paper_towels', 'juice', false], ['paper_towels', 'paper_towels', true]]);
+    var first = doc.summary.issues.filter(function (i) { return i.type === 'unreadable_barcode'; })[0];
+    equal([first.physicalItem, first.resolvedSku, first.identificationMatch], ['paper_towels', 'juice', false]);
+  });
+
+  test('Correct identification is recorded for lookup, code entry and assistance', function () {
+    ['lookup', 'code', 'assist'].forEach(function (path) {
+      var h = harness().study('T6');
+      h.d('kiosk.start');
+      h.scan('paper_towels');
+      if (path === 'lookup') { h.d('help.choose', { option: 'lookup_item' }); h.d('lookup.select', { sku: 'paper_towels' }); }
+      else if (path === 'code') { h.d('help.choose', { option: 'enter_code' }); h.d('manual.submit', { code: '100107' }); }
+      else { h.d('help.choose', { option: 'request_assistance' }); h.run(); }
+      h.perform();
+      h.add('juice');
+      h.pay();
+      h.d('receipt.done');
+      var task = h.doc().tasks[0];
+      equal([task.outcome, task.wrongIdentifications, task.firstSatisfiedAfterMs], ['success', 0, task.durationMs], path);
+      equal(resolutions(h)[0], ['paper_towels', 'paper_towels', true], path);
+    });
+  });
+
+  test('Hidden time is split by task and reload-cut intervals are counted apart', function () {
+    var a = harness();
+    a.config.taskOrder = ['T1', 'T2'];
+    a.d('session.start', { mode: 'study' });
+    function see(h, state) { h.app.dispatch('system.visibility', { state: state }, 'system'); }
+    see(a, 'hidden');
+    var b = harness({ storage: a.storage, wall: a.wall + 60000 });
+    b.config.taskOrder = ['T1', 'T2'];
+    b.app.resume();
+    b.d('task.start');
+    see(b, 'hidden'); b.time += 4000; see(b, 'visible');
+    b.add('soup'); b.add('soup'); b.add('soup');
+    b.d('task.done');
+    see(b, 'hidden'); b.time += 7000;
+    see(b, 'visible');
+    b.d('task.start');
+    b.d('session.end');
+    var doc = b.doc();
+    equal([doc.summary.hiddenIntervals, doc.summary.hiddenDurationMs, doc.summary.hiddenIntervalsInterruptedByReload],
+      [2, 11000, 1]);
+    equal(doc.tasks.map(function (t) { return t.hiddenDurationMs; }), [4000, 0]);
+    ok(doc.tasks[0].firstSatisfiedAfterMs > 4000 && doc.tasks[0].firstSatisfiedAfterMs < doc.tasks[0].durationMs);
+    equal(doc.tasks[1].firstSatisfiedAfterMs, null);
+  });
+
+  function scanAgain() {
+    var h = harness().practice();
+    h.d('sim.unexpected_item');
+    if (h.s().ui.screen !== 'help') h.d('issue.open', { issueId: h.open()[0].issueId });
+    h.d('help.choose', { option: 'scan_again' });
+    equal([h.s().ui.screen, h.s().recoveryIssueId, h.open().length], ['checkout', h.open()[0].issueId, 1]);
+    return h;
+  }
+
+  test('After Scan again, identifying an item by any route clears the bagging problem', function () {
+    var produce = scanAgain();
+    produce.d('lookup.open');
+    produce.d('lookup.select', { sku: 'gala_apples' });
+    produce.d('scale.place');
+    produce.d('weigh.confirm');
+    produce.perform();
+    equal([produce.open().length, produce.s().recoveryIssueId, produce.qty('gala_apples')], [0, null, 1], 'produce');
+    var restricted = scanAgain();
+    restricted.scan('wine');
+    equal(restricted.open().map(function (i) { return i.type; }), ['authorization_required'], 'restricted');
+    var damaged = scanAgain();
+    damaged.scan('paper_towels');
+    equal(damaged.open().length, 2, 'a failed read leaves both problems open');
+    damaged.d('help.choose', { option: 'lookup_item' });
+    damaged.d('lookup.select', { sku: 'paper_towels' });
+    damaged.perform();
+    equal(damaged.open().length, 0, 'damaged label then lookup');
+  });
+
+  test('Choosing another option ends the Scan again state', function () {
+    ['remove_from_bagging', 'request_assistance'].forEach(function (option) {
+      var h = scanAgain();
+      h.d('issue.open', { issueId: h.open()[0].issueId });
+      h.d('help.choose', { option: option });
+      equal(h.s().recoveryIssueId, null, option);
+      equal(h.scan('soup').reasonCode, 'blocking_issue', option);
+    });
+  });
+
   /* ---------- export, persistence, privacy ---------- */
 
   test('Abandoned sessions export, censored durations are null, export repeats identically', function () {

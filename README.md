@@ -60,8 +60,8 @@ For GitHub Pages, use one of these in a separate publishing repository or branch
 2. **First-run tips** appear after Start: three spotlight tooltips that point out the Simulation panel, the basket scan buttons and the yellow next-step button. Next, Back, Skip tips and Esc work. They are shown once per session (each new participant sees them), return after a reload only if unfinished, and end before the first task, so no task time includes them. They deliberately do not mention kiosk features under study, such as Help or Needs attention.
 3. **Study tasks** runs the tasks in order. Each task shows its goal, then **I've finished this task** or **I can't complete it**. A task also ends by itself when payment completes.
 4. **Practice** is free exploration with extra simulated events.
-5. The dashed **Simulation panel** is not part of the kiosk. It stands in for the participant's hands, the scanner, the scale, the bagging and return areas, and the card reader. The highlighted yellow button is the next physical step.
-6. **End session** (always visible) freezes the log and opens the results page.
+5. The dashed **Simulation panel** is not part of the kiosk. It stands in for the participant's hands, the scanner, the scale, the bagging and return areas, and the card reader. The highlighted yellow button is the next physical step. On wide screens that section stays pinned at the top while the panel scrolls, and the kiosk says when to use it.
+6. **End session** (always visible) freezes the log and opens the results page. **Copy session JSON** gives a compressed form for pasting; **Download JSON** gives the full readable file.
 
 There is no employee-approval button anywhere. An associate "arrives" a fixed 3 seconds after an assistance request.
 
@@ -78,6 +78,7 @@ There is no employee-approval button anywhere. An associate "arrives" a fixed 3 
 | Unreadable or unknown barcode | Creates an unidentified, unpriced issue under Needs attention. |
 | Restricted item | Not charged until simulated approval; scanning may continue. |
 | Unexpected item in bagging area, general assistance | Not deferrable: new items are blocked until cleared. |
+| **Scan again** on an unexpected item | The kiosk and panel ask for a scan. Identifying an item by scan, produce lookup, code or associate clears the problem. |
 | Pay | Unavailable while any item awaits bagging or any issue is unresolved; the reason and a link to Needs attention are shown. |
 
 Limits: quantity 1–12 per row (0 means remove).
@@ -120,6 +121,7 @@ Layouts, wording and colors were taken from `images/`. Colors were sampled from 
 | Report term "Guided Error Recovery". | Replaced by "Help" / Contextual Help. |
 | Gift card, Mobile Pay and EBT use different icons on the method list and the instruction screen. | Preserved as shown. |
 | Disabled Pay text in the references has low contrast. | Darkened. |
+| Specification asks for compact JSON when copying; full sessions are too large for many text fields. | Copy and the text box give gzip + base64 inside a small JSON wrapper (team decision). Download is unchanged. |
 
 ### Screens with no reference (newly designed)
 
@@ -167,7 +169,7 @@ Every task starts with a fresh order (`resetBefore: true`). The task card says s
 | T3 | You no longer want the Whole Milk; make sure you are not charged. | Milk is the oldest of five rows. | No milk line; nothing pending for milk. |
 | T4 | Add the box of Cereal. | Cereal barcode never reads. | Cereal quantity 1, verified, unreadable issue cleared (code, lookup or associate). |
 | T5 | Add the Gala Apples. | Eggs on the order. | Exactly one weighed Gala Apples line, verified. |
-| T6 | Buy Paper Towels and Orange Juice; towels first; if they cause a problem, add the juice before sorting it out; then pay. | Towel barcode never reads. | Juice added, towel issue resolved with one towel line, checkout complete. |
+| T6 | Buy Paper Towels and Orange Juice; towels first; if they cause a problem, add the juice before sorting it out; then pay. | Towel barcode never reads. | Juice added, every towel problem resolved as Paper Towels, one towel line, checkout complete. Resolving it as another item fails `original_issue_resolved`, even if corrected later. |
 
 Outcomes: `success`; `partial` (some progress criterion met); `failure`; `abandoned`; `unfinished` (session ended mid-task; duration is null); `not_started`.
 
@@ -191,7 +193,7 @@ Every event has `seq` (from 1), `tMs` (monotonic, from session start), `type`, `
 | `quantity_requested` / `quantity_committed` | `oldQty`, `newQty`, `method`, `reason`, `weight` |
 | `removal_requested` / `removal_committed` | `reason`, `quantity` |
 | `help_opened` / `help_action_selected` / `help_closed` | `context`, `trigger` (`user`, `automatic`) / `optionId` |
-| `issue_opened` / `issue_deferred` / `issue_resolved` | `issueType` / `method` / `finalStatus` (`resolved`, `canceled`), `resolutionMethod` |
+| `issue_opened` / `issue_deferred` / `issue_resolved` | `issueType` / `method` / `finalStatus` (`resolved`, `canceled`), `resolutionMethod`; for identification problems also `physicalItem`, `resolvedSku`, `identificationMatch` |
 | `verification_requested` / `verification_result` | `method` (`bag_scale`, `return_area`, `weight_check`, `placement_check`), `attempt` / `result` |
 | `assistance_requested` / `assistance_completed` | `issueType` / `outcome` (`resolved`, `canceled`); `requestId` is the assistance ID |
 | `payment_attempted` / `payment_blocked` / `checkout_completed` | none / `blockingReason`, `reasons` / `finalTotalCents`, `itemCount`, `method` |
@@ -212,7 +214,19 @@ Every event has `seq` (from 1), `tMs` (monotonic, from session start), `type`, `
 
 ## Export format and sample
 
-Filename: `self-checkout-session-<sessionId>.json`. **Copy** gives compact JSON; **Download** gives formatted JSON of the same content. The log is frozen at session end, so repeated exports are identical.
+Filename: `self-checkout-session-<sessionId>.json`. **Download** gives formatted JSON. **Copy** and the results text box give the same data compressed:
+
+```json
+{"encoding": "gzip+base64", "sessionId": "random-uuid", "data": "H4sIAAAA..."}
+```
+
+Decode pasted responses (one response per input file):
+
+```
+python tools/decode_export.py response1.txt response2.txt -o decoded
+```
+
+The script also accepts plain session JSON, which is what a browser without `CompressionStream` offers, and reports truncated or altered text as an error. The log is frozen at session end, so repeated exports are identical in the same browser.
 
 [docs/sample-export.json](docs/sample-export.json) is a complete six-task export produced by the automated browser test. Its delays were shortened and a script did the clicking, so **its timings are meaningless**; use it to check structure and parsing.
 
@@ -220,9 +234,9 @@ Abbreviated shape:
 
 ```json
 {
-  "schemaVersion": "1.0",
-  "prototypeVersion": "1.1.0",
-  "scenarioVersion": "1.0",
+  "schemaVersion": "1.1",
+  "prototypeVersion": "1.2.1",
+  "scenarioVersion": "1.1",
   "sessionId": "random-uuid",
   "condition": "redesign",
   "mode": "study",
@@ -255,17 +269,22 @@ All are derived from the event log and task records.
 | `paymentAttempts` / `blockedPayments` / `checkoutsCompleted` | Payment flow counts. |
 | `rejectedActions` | `action_result` events with `rejected`. |
 | `hiddenIntervals`, `hiddenDurationMs`, `hiddenIntervalUnfinished` | Time the tab was hidden. Do not read it as inactivity. |
+| `hiddenIntervalsInterruptedByReload` | Hidden periods cut off by a reload. Not in the two fields above; their time is in `offlineGapMs`. |
+| `wrongIdentifications` | Identification problems resolved as a different item from the one in hand. |
 | `issues[]` | Per issue: opened, closed, `durationMs` (null if unresolved), final status, method. |
 | `unresolvedIssues` | Issues never resolved or canceled, including those discarded at a task boundary. |
 | `screenTrajectory`, `actionTrajectory` | Ordered names. |
 
-Each entry in `tasks[]` also carries its own error, help, assistance, edit, repeat-scan and blocked-payment counts, `spansReload`, and the success criteria.
+Each entry in `tasks[]` also carries its own error, help, assistance, edit, repeat-scan, blocked-payment and wrong-identification counts, `spansReload`, and the success criteria, plus:
+
+- `hiddenDurationMs`: measured hidden time inside the task. It is included in `durationMs`.
+- `firstSatisfiedAfterMs`: time from task start until the goal was first met (null if never), even if later undone.
 
 ## Survey integration
 
 1. Optionally set `surveyUrl` in `js/config.js` and rebuild the single file.
 2. In the survey, add these instructions: *"Complete the tasks, end the session, then paste the session JSON below (or upload the file). Then answer the remaining questions."*
-3. **Prefer a file upload question.** A clean automated six-task run produced about 45,000 characters of compact JSON (215 events). Real participants will produce more. Check your platform's text-field limit; if the JSON does not fit, use upload or another approved route. Never truncate it.
+3. **Prefer a file upload question.** For a text field, copied responses are compressed: a six-task automated run was about 7,700 characters (46,000 uncompressed), and one hand-run 355-event session would be about 10,000. Longer sessions are larger. Check your platform's limit and never truncate: a cut-off response cannot be decoded.
 4. Ask participants for the session ID shown on the results page if you need to match a pasted log to a file.
 5. Pilot the full handoff with a long session before deployment.
 
@@ -291,7 +310,8 @@ The prototype sends nothing and cannot confirm that the survey received anything
 | `js/scenario.js` | Task success predicates and constraint checks. |
 | `js/transaction.js` | Single state, validated actions, `paymentEligibility` and `addBlockReason`. Returns events and delayed effects. |
 | `js/telemetry.js` | Append-only log and monotonic clock. |
-| `js/export.js` | Derived metrics and export. |
+| `js/export.js` | Derived metrics, export and compression. |
+| `tools/decode_export.py` | Decodes pasted responses. |
 | `js/persistence.js` | Guarded local checkpoints. |
 | `js/controller.js` | Dispatcher, timers, resume and reset. No DOM. |
 | `js/ui.js`, `css/styles.css` | Rendering and input. |
@@ -313,8 +333,8 @@ python tools/build_standalone.py --check
 
 | Suite | Result |
 |---|---|
-| Logic (`tests/tests.js`) | 47 of 47 passed |
-| Browser (`tests/e2e.py`) | 114 of 114 passed |
+| Logic (`tests/tests.js`) | 52 of 52 passed |
+| Browser (`tests/e2e.py`) | 135 of 135 passed |
 
 | Acceptance criterion | Covered by |
 |---|---|
@@ -348,7 +368,8 @@ The logic suite also runs 150 random action sequences, checking state invariants
 - [ ] Complete T1 and T3 with keyboard only.
 - [ ] Use a screen reader (NVDA or VoiceOver): headings, row controls, banners, Needs attention, dialogs.
 - [ ] Zoom to 200% and check nothing becomes unreachable.
-- [ ] Copy the JSON with the real clipboard and paste it into the real survey field.
+- [ ] Copy the JSON with the real clipboard, paste it into the real survey field, export the response and decode it.
+- [ ] Check the results page on the oldest browser participants may use.
 - [ ] Download and upload the file to the real survey.
 - [ ] Refresh mid-task and resume; try a private window.
 - [ ] Switch tabs and lock the device mid-task, then check `hiddenDurationMs` and `tMs`.
@@ -358,6 +379,9 @@ The logic suite also runs 150 random action sequences, checking state invariants
 ## Known limitations
 
 - Verified only in headless Chrome on Windows.
+- Pasted (compressed) responses must be decoded before reading.
+- Only T6 fails when a problem is resolved as the wrong item. T4 still succeeds if the participant later adds the right item; check `wrongIdentifications`.
+- Data from `prototypeVersion` 1.1.0 and earlier scores T6 differently and lacks the 1.2.0 fields.
 - The tips cannot be reopened after they are finished or skipped. Session `durationMs` includes time spent on them; task durations do not.
 - Data from `prototypeVersion` 1.0.0 had no tips; do not pool it with later data without noting the difference.
 - Physical actions are buttons. This may itself confuse participants; separate that from interface problems during analysis (the earlier evaluation saw this).

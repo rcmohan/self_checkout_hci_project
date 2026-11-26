@@ -203,12 +203,19 @@
       if (!log || !log.isFrozen()) return null;
       if (!exportCache) {
         var doc = SCO.exporter.build(state, log, config);
-        exportCache = {
+        var built = {
           sessionId: log.sessionId,
           filename: SCO.exporter.filename(log.sessionId),
           compact: JSON.stringify(doc),
-          pretty: JSON.stringify(doc, null, 2)
+          pretty: JSON.stringify(doc, null, 2),
+          paste: null
         };
+        /* Compression is asynchronous; `paste` is filled in when it finishes. */
+        built.ready = SCO.exporter.pack(built.compact, built.sessionId).then(function (text) {
+          built.paste = text;
+          return text;
+        });
+        exportCache = built;
       }
       return exportCache;
     }

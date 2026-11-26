@@ -5,9 +5,9 @@
   'use strict';
 
   SCO.config = {
-    schemaVersion: '1.0',
-    prototypeVersion: '1.1.0',
-    scenarioVersion: '1.0',
+    schemaVersion: '1.1',
+    prototypeVersion: '1.2.1',
+    scenarioVersion: '1.1',
 
     /* Label written into every export. Only a "redesign" interface ships here. */
     condition: 'redesign',

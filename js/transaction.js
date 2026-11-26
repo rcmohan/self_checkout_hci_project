@@ -197,13 +197,29 @@
         .forEach(function (r) { dropRequest(r.requestId); });
       cancelAssistFor(issue.issueId);
       if (s.recoveryIssueId === issue.issueId) s.recoveryIssueId = null;
+      var details = { issueType: issue.type, finalStatus: finalStatus, resolutionMethod: method };
+      /* For identification problems, record what was in the shopper's hand and
+       * what it was resolved as. The kiosk accepts a wrong choice either way. */
+      if (IDENTIFY_TYPES[issue.type] && issue.simItem) {
+        details.physicalItem = issue.simItem;
+        if (issue.resolvedSku) {
+          details.resolvedSku = issue.resolvedSku;
+          if (catalog.get(issue.simItem)) details.identificationMatch = issue.resolvedSku === issue.simItem;
+        }
+      }
       emit('issue_resolved', {
         actor: eventActor || 'system', issueId: issue.issueId, lineId: issue.lineId || undefined,
-        details: { issueType: issue.type, finalStatus: finalStatus, resolutionMethod: method }
+        details: details
       });
       if ((s.ui.screen === 'help' || s.ui.screen === 'assistance') && s.ui.params.issueId === issue.issueId) {
         goto('checkout');
       }
+    }
+
+    /* After "Scan again", identifying an item by any route clears that problem. */
+    function closeRecovery(method, eventActor) {
+      var issue = s.recoveryIssueId && issueById(s, s.recoveryIssueId);
+      if (issue && !CLOSED[issue.status]) closeIssue(issue, 'resolved', method, eventActor);
     }
 
     var methodByPhysical = { bag: 'bag_scale', return: 'return_area', check: 'placement_check',
@@ -413,6 +429,7 @@
         emit('scan_result', { actor: 'system', sku: simItemId,
           details: { result: 'authorization_required', errorCategory: undefined } });
         noteViolation(violation(simItemId, oldQty, oldQty + 1));
+        closeRecovery('rescan');
         requestRestricted(simItemId, 1);
         return true;
       }
@@ -422,7 +439,6 @@
         goto('weigh', { sku: simItemId, issueId: matching ? matching.issueId : null, placed: false });
         return true;
       }
-      var recovery = s.recoveryIssueId && issueById(s, s.recoveryIssueId);
       var added = addLine(simItemId, 1);
       var bad = violation(simItemId, added.oldQty, added.newQty);
       var details = { result: 'success', oldQty: added.oldQty, newQty: added.newQty, repeat: added.oldQty > 0 };
@@ -430,8 +446,8 @@
       emit('scan_result', { actor: 'system', lineId: added.line.lineId, sku: simItemId, details: details });
       goto('checkout');
       s.ui.banner = null;
-      if (matching) closeIssue(matching, 'resolved', 'rescan');
-      if (recovery && !CLOSED[recovery.status]) closeIssue(recovery, 'resolved', 'rescan');
+      if (matching) { matching.resolvedSku = simItemId; closeIssue(matching, 'resolved', 'rescan'); }
+      closeRecovery('rescan');
       deferOpenIdentificationIssues(null);
       return true;
     }
@@ -450,8 +466,10 @@
       if (blocked) { banner('error', blocked); goto('checkout'); return reject(blocked, 'policy_block'); }
       var oldQty = existing ? existing.qty : 0;
       noteViolation(violation(sku, oldQty, oldQty + qty));
+      if (issue) issue.resolvedSku = sku;
       if (item.restricted) {
         if (issue) closeIssue(issue, 'resolved', method);
+        closeRecovery(method);
         requestRestricted(sku, qty);
         return true;
       }
@@ -461,6 +479,7 @@
       goto('checkout');
       banner('success', 'item_added', { sku: sku });
       if (issue) closeIssue(issue, 'resolved', method);
+      closeRecovery(method);
       deferOpenIdentificationIssues(null);
       return true;
     }
@@ -603,6 +622,7 @@
       }
       var req = requestForIssue(s, issue.issueId);
       if (req && req.phase === 'verifying') return reject('verification_in_progress', 'policy_block');
+      if (s.recoveryIssueId === issue.issueId) s.recoveryIssueId = null;
       var assist = { assistId: nextId('H'), issueId: issue.issueId, status: 'requested' };
       s.assists.push(assist);
       issue.status = 'awaiting_verification';
@@ -634,9 +654,11 @@
         if (sku && catalog.get(sku)) {
           var item = catalog.get(sku);
           var added = addLine(sku, 1, item.unit === 'lb' ? item.simWeight : null);
+          issue.resolvedSku = sku;
           emit('quantity_committed', { lineId: added.line.lineId, sku: sku,
             details: { oldQty: added.oldQty, newQty: added.newQty, method: 'assisted' } });
           closeIssue(issue, 'resolved', 'assistance', by);
+          closeRecovery('assistance', by);
           banner('success', 'item_added', { sku: sku });
         } else {
           closeIssue(issue, 'resolved', 'assistance_no_item', by);
@@ -741,8 +763,9 @@
           return requestChange(dup, dup.qty - 1, 'duplicate', 'duplicate_prompt');
         }
         case 'scan_again':
-          s.recoveryIssueId = issue.issueId; goto('checkout'); banner('info', 'scan_again'); return true;
+          s.recoveryIssueId = issue.issueId; goto('checkout'); return true;
         case 'remove_from_bagging':
+          s.recoveryIssueId = null;
           if (!req) {
             newRequest({ kind: 'unexpected_item', issueId: issue.issueId, physical: 'return' });
           } else if (req.kind === 'placement_check') {
@@ -750,6 +773,7 @@
           }
           goto('checkout'); return true;
         case 'check_placement':
+          s.recoveryIssueId = null;
           if (!req) newRequest({ kind: 'placement_check', issueId: issue.issueId, physical: 'check' });
           goto('checkout'); banner('info', 'check_placement'); return true;
         case 'cancel_change':

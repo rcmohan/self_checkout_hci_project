@@ -75,6 +75,11 @@
     return text.replace(/\{(\w+)\}/g, function (_, k) { return data[k] !== undefined ? data[k] : ''; });
   }
 
+  /* Shown on the kiosk whenever the next move is made in the simulation panel. */
+  function simHint(text) {
+    return '<span class="sim-hint">' + (text || 'Press the yellow button in the Simulation panel.') + '</span>';
+  }
+
   /* Button that dispatches an application action. */
   function act(label, action, params, opts) {
     opts = opts || {};
@@ -122,8 +127,14 @@
       return issue.type === 'produce_identification' ? 'Unidentified produce' : 'Unidentified item';
     }
 
+    /* The shopper chose "Scan again" and has not yet identified an item. */
+    function rescanIssue(state) {
+      return tx.unresolved(state).filter(function (i) { return i.issueId === state.recoveryIssueId; })[0] || null;
+    }
+
     function issueDescription(state, issue) {
       var req = request(state, issue.issueId);
+      if (issue === rescanIssue(state)) return 'Waiting for you to scan the item';
       if (req && req.reverting) return 'Canceling change';
       if (req && req.kind === 'item_cancel') return 'Not buying. Waiting for it to be returned.';
       switch (issue.type) {
@@ -144,6 +155,7 @@
     function issueStatus(state, issue) {
       var req = request(state, issue.issueId);
       if (tx.activeAssist(state, issue.issueId)) return { icon: '⏳', text: 'Associate on the way', tone: 'wait' };
+      if (issue === rescanIssue(state)) return { icon: '●', text: 'Waiting for you', tone: 'act' };
       if (issue.status === 'deferred') return { icon: '⏸', text: 'Set aside', tone: 'aside' };
       if (req && req.phase === 'failed') return { icon: '✖', text: 'Check failed: try again', tone: 'bad' };
       if (issue.status === 'awaiting_verification') return { icon: '⏳', text: 'Checking', tone: 'wait' };
@@ -267,9 +279,9 @@
       var approval = first(function (r) { return r.phase === 'awaiting_approval' && r.kind !== 'restricted_add'; });
       var blocking = tx.unresolved(state).filter(function (i) { return !app.config.issuePolicy[i.type].deferrable; })[0];
 
-      function panel(tone, icon, title, detail, buttons) {
+      function panel(tone, icon, title, detail, buttons, hint) {
         return '<div class="prompt prompt-' + tone + '"><div class="prompt-icon" aria-hidden="true">' + icon + '</div>' +
-          '<h1 class="prompt-title">' + esc(title) + '</h1><p>' + esc(detail) + '</p>' +
+          '<h1 class="prompt-title">' + esc(title) + '</h1><p>' + esc(detail) + '</p>' + (hint || '') +
           (buttons ? '<div class="prompt-actions">' + buttons + '</div>' : '') + '</div>';
       }
       function requestButtons(r) {
@@ -292,11 +304,17 @@
       }
 
       if (failed) return panel('bad', '⚠️', 'We couldn’t confirm that step',
-        failed.physical ? physicalText(failed).detail + ' Then try again.' : 'The order check did not pass.', requestButtons(failed));
-      if (bag) { var b = physicalText(bag); return panel('wait', '🛍️', b.title, b.detail); }
+        failed.physical ? physicalText(failed).detail + ' Then try again.' : 'The order check did not pass.', requestButtons(failed),
+        failed.physical ? simHint() : '');
+      if (bag) { var b = physicalText(bag); return panel('wait', '🛍️', b.title, b.detail, '', simHint()); }
       if (checking) return panel('wait', '<span class="spinner"></span>', checking.physical ? 'Checking the bagging area…' : 'Checking your order…',
         checking.physical ? 'This takes a moment.' : 'Keep the items you are buying in the bagging area. Nothing needs to move.');
-      if (physical) { var t = physicalText(physical); return panel('wait', '🛍️', t.title, t.detail, requestButtons(physical)); }
+      if (physical) { var t = physicalText(physical); return panel('wait', '🛍️', t.title, t.detail, requestButtons(physical), simHint()); }
+      var rescan = rescanIssue(state);
+      if (rescan) return panel('wait', '▦', 'Scan the item now',
+        'Scan the item that is in the bagging area. If it is loose produce, use Look Up Produce.',
+        act('Choose another option', 'issue.open', { issueId: rescan.issueId }, { cls: 'btn btn-small' }),
+        simHint('Press a Scan button in the Simulation panel.'));
       if (approval) return panel('wait', '✋', 'Associate approval needed', 'This change is waiting for approval.', requestButtons(approval));
       if (blocking) return panel('bad', '⚠️', 'Checkout needs attention', 'Choose Resolve under Needs attention to continue.');
       var firstItem = state.lines.length === 0 && state.issues.length === 0;
@@ -535,7 +553,7 @@
       var item = catalog.get(state.ui.params.sku);
       if (!state.ui.params.placed) {
         return dialog({ icon: '<div class="big-icon" aria-hidden="true">⚖️</div>', title: 'Place ' + item.name + ' on the scale',
-          text: money(item.priceCents) + ' per lb', footer: back('Cancel') });
+          text: money(item.priceCents) + ' per lb', body: simHint(), footer: back('Cancel') });
       }
       var amount = Math.floor((item.simWeight * item.priceCents + 50) / 100);
       return dialog({ icon: '<div class="big-icon" aria-hidden="true">⚖️</div>', title: item.name, stack: true,
@@ -580,7 +598,8 @@
       return dialog({ cls: 'pay-card', stack: true,
         icon: '<div class="big-icon" aria-hidden="true">' + (m.cardIcon || m.icon) + '</div>', title: m.label,
         body: bannerHtml(state) + '<p class="amount">' + money(tx.totals(state, app.config).totalCents) + '</p><p class="dialog-text">' +
-          (state.ui.params.method === 'cash' ? 'Insert cash into the cash acceptor.' : 'Insert, tap, or swipe your card on the card reader.') + '</p>',
+          (state.ui.params.method === 'cash' ? 'Insert cash into the cash acceptor.' : 'Insert, tap, or swipe your card on the card reader.') +
+          '</p>' + simHint(),
         buttons: act('Choose another payment method', 'pay.other', {}) });
     }
 
@@ -676,6 +695,7 @@
       });
       var scanning = screen !== 'processing' && screen !== 'payment_complete' && screen !== 'receipt';
       var next = steps.length ? '<div class="sim-list">' + steps.join('') + '</div>'
+        : rescanIssue(state) ? '<p class="sim-note">Scan the item: use a Scan button under Your basket.</p>'
         : (touring(app.getState()) ? '<div class="sim-btn sim-next sim-example"><small>Example</small>Place the item in the bagging area</div>'
           : '<p class="dock-empty">Nothing to move right now.</p>');
       return '<aside class="dock" aria-label="Simulation panel" data-scroll="dock">' +
@@ -724,6 +744,20 @@
         start + '</div></main>';
     }
 
+    function pasteLabel(data) {
+      if (data.paste === null) return 'Preparing session data…';
+      return (data.paste === data.compact ? 'Session JSON' : 'Compressed session JSON') +
+        ' (' + data.paste.length.toLocaleString('en-US') + ' characters). Select all to copy by hand.';
+    }
+
+    function showPaste() {
+      var data = app.getExport();
+      var box = document.getElementById('json');
+      if (!data || !box || data.paste === null) return;
+      box.value = data.paste;
+      document.getElementById('json-label').textContent = pasteLabel(data);
+    }
+
     function resultsPage(state) {
       var data = app.getExport();
       var done = state.session.status === 'completed';
@@ -737,8 +771,8 @@
         '<div class="row">' + local('Copy session JSON', 'copy', { cls: 'btn btn-primary' }) + local('Download JSON', 'download') +
         (url && /^https?:\/\//.test(url) ? '<a class="btn" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">Open survey</a>' : '') + '</div>' +
         '<p id="copy-status" class="copy-status" role="status">' + esc(view.copyMessage) + '</p>' +
-        '<label for="json">Session JSON (' + data.compact.length.toLocaleString('en-US') + ' characters). Select all to copy by hand.</label>' +
-        '<textarea id="json" data-fk="json" readonly spellcheck="false">' + esc(data.compact) + '</textarea>' +
+        '<label id="json-label" for="json">' + pasteLabel(data) + '</label>' +
+        '<textarea id="json" data-fk="json" readonly spellcheck="false">' + esc(data.paste || '') + '</textarea>' +
         '<p class="muted">The data stays in this browser until you delete it. Copying or downloading does not delete it.</p>' +
         local('Delete local session / Start new session', 'ask-delete') + '</div></main>';
     }
@@ -914,6 +948,8 @@
         view.lastLineSig = sig;
       }
 
+      /* Fill the text box in place when compression ends, leaving focus alone. */
+      if (screen === 'results' && app.getExport().paste === null) app.getExport().ready.then(showPaste);
       placeTour(true);
       restoreFocus(changed, focusKey, focusArea);
       announce(state);
@@ -968,7 +1004,7 @@
 
     function copyJson() {
       var data = app.getExport();
-      if (!data) return;
+      if (!data || data.paste === null) return;
       function manual() {
         var box = document.getElementById('json');
         box.focus();
@@ -980,7 +1016,7 @@
       }
       setCopyMessage('');
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(data.compact).then(function () { setCopyMessage('✓ Copied to the clipboard.'); }, manual);
+        navigator.clipboard.writeText(data.paste).then(function () { setCopyMessage('✓ Copied to the clipboard.'); }, manual);
       } else manual();
     }
 

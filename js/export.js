@@ -41,6 +41,9 @@
       paymentAttempts: ofType(events, 'payment_attempted').length,
       blockedPayments: ofType(events, 'payment_blocked').length,
       checkoutsCompleted: ofType(events, 'checkout_completed').length,
+      wrongIdentifications: count(events, function (e) {
+        return e.type === 'issue_resolved' && e.details.identificationMatch === false;
+      }),
       rejectedActions: count(events, function (e) {
         return e.type === 'action_result' && e.details.outcome === 'rejected';
       })
@@ -63,26 +66,46 @@
         found.durationMs = e.tMs - found.openedMs;
         found.finalStatus = e.details.finalStatus;
         found.resolutionMethod = e.details.resolutionMethod;
+        ['physicalItem', 'resolvedSku', 'identificationMatch'].forEach(function (key) {
+          if (e.details[key] !== undefined) found[key] = e.details[key];
+        });
         delete open[e.issueId];
       }
     });
     return list;
   }
 
-  function hidden(events) {
-    var total = 0;
+  /* Measured hidden-tab intervals. A reload cuts an interval off: its length is
+   * unknown (the time away is in offlineGapMs), so it is counted separately. */
+  function hiddenSpans(events) {
+    var spans = [];
     var since = null;
-    var intervals = 0;
+    var interrupted = 0;
     events.forEach(function (e) {
       if (e.type === 'visibility_changed') {
-        if (e.details.state === 'hidden') { if (since === null) { since = e.tMs; intervals += 1; } }
-        else if (since !== null) { total += e.tMs - since; since = null; }
-      } else if (e.type === 'session_resumed') since = null;
+        if (e.details.state === 'hidden') { if (since === null) since = e.tMs; }
+        else if (since !== null) { spans.push({ start: since, end: e.tMs }); since = null; }
+      } else if (e.type === 'session_resumed' && since !== null) { interrupted += 1; since = null; }
     });
-    return { hiddenIntervals: intervals, hiddenDurationMs: total, hiddenIntervalUnfinished: since !== null };
+    return { spans: spans, interrupted: interrupted, unfinished: since !== null };
+  }
+
+  function hiddenBetween(spans, from, to) {
+    return spans.reduce(function (n, s) { return n + Math.max(0, Math.min(s.end, to) - Math.max(s.start, from)); }, 0);
+  }
+
+  function hidden(events) {
+    var h = hiddenSpans(events);
+    return {
+      hiddenIntervals: h.spans.length + (h.unfinished ? 1 : 0),
+      hiddenDurationMs: hiddenBetween(h.spans, 0, Infinity),
+      hiddenIntervalUnfinished: h.unfinished,
+      hiddenIntervalsInterruptedByReload: h.interrupted
+    };
   }
 
   function taskResults(state, events) {
+    var spans = hiddenSpans(events).spans;
     return state.tasks.records.map(function (record) {
       var id = record.taskId;
       var mine = events.filter(function (e) { return e.taskId === id; });
@@ -90,11 +113,16 @@
       var ended = ofType(mine, 'task_ended')[0];
       var censored = !!started && (!ended || ended.details.outcome === 'unfinished');
       var m = metrics(mine);
+      /* A goal first met by the final payment has no earlier timestamp. */
+      var metAt = ended ? ended.details.firstSatisfiedMs : undefined;
+      if (metAt === undefined && ended && ended.details.predicatePassed) metAt = ended.tMs;
       return {
         taskId: id,
         outcome: ended ? ended.details.outcome : (started ? 'unfinished' : 'not_started'),
         durationMs: started && ended && !censored ? ended.tMs - started.tMs : null,
         censoredAtMs: censored ? (ended || mine[mine.length - 1]).tMs - started.tMs : null,
+        hiddenDurationMs: started ? hiddenBetween(spans, started.tMs, (ended || mine[mine.length - 1]).tMs) : null,
+        firstSatisfiedAfterMs: started && metAt !== undefined ? metAt - started.tMs : null,
         spansReload: started ? events.some(function (e) {
           return e.type === 'session_resumed' && e.seq > started.seq && (!ended || e.seq < ended.seq);
         }) : false,
@@ -106,7 +134,8 @@
         assistanceRequests: m.assistanceRequests,
         quantityEdits: m.quantityEdits,
         repeatedScans: m.repeatedScans,
-        blockedPayments: m.blockedPayments
+        blockedPayments: m.blockedPayments,
+        wrongIdentifications: m.wrongIdentifications
       };
     });
   }
@@ -153,8 +182,26 @@
     };
   }
 
+  /* Smaller form for pasting into a survey field: the compact JSON, gzipped and
+   * base64 encoded inside a JSON wrapper. tools/decode_export.py reverses it.
+   * Resolves to the plain JSON if this browser cannot compress. */
+  function pack(json, sessionId) {
+    return Promise.resolve().then(function () {
+      var stream = new Blob([json]).stream().pipeThrough(new window.CompressionStream('gzip'));
+      return new Response(stream).arrayBuffer();
+    }).then(function (buffer) {
+      var bytes = new Uint8Array(buffer);
+      var binary = '';
+      for (var i = 0; i < bytes.length; i += 0x8000) {
+        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      }
+      return JSON.stringify({ encoding: 'gzip+base64', sessionId: sessionId, data: window.btoa(binary) });
+    }).catch(function () { return json; });
+  }
+
   SCO.exporter = {
     build: build,
+    pack: pack,
     metrics: metrics,
     filename: function (sessionId) { return 'self-checkout-session-' + sessionId + '.json'; }
   };
